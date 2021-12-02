@@ -30,9 +30,4 @@ def update_blog(id:int, req:Blog, db:Session= Depends(get_db)):
 
 @router.get("/{id}", status_code=status.HTTP_200_OK, response_model=ShowBlog)
 def show_blog(id:int, res:Response, db:Session = Depends(get_db)):
-    blog = db.query(models.Blog).filter(models.Blog.id ==id).first()
-    if not blog:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"Blogs with the id {id} is not found")
-       # res.status_code = status.HTTP_404_NOT_FOUND
-       # return {"detail": f"Blogs with the id {id} is not found"}
-    return  blog
+   return blog.showBlog(db=db, id=id)

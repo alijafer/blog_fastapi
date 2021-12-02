@@ -34,3 +34,11 @@ def update(db:Session, id, title, body):
         blog.update({'title': title, "body": body})
         db.commit()
         return {"update done"}
+
+def showBlog(db:Session, id):
+    blog = db.query(models.Blog).filter(models.Blog.id ==id).first()
+    if not blog:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"Blogs with the id {id} is not found")
+       # res.status_code = status.HTTP_404_NOT_FOUND
+       # return {"detail": f"Blogs with the id {id} is not found"}
+    return  blog
