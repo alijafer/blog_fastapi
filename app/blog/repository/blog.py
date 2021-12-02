@@ -1,8 +1,6 @@
-
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from .. import models
-
+from blog import models
 
 def get_all(db:Session):
     blogs = db.query(models.Blog).all()
@@ -35,7 +33,7 @@ def update(db:Session, id, title, body):
         db.commit()
         return {"update done"}
 
-def showBlog(db:Session, id):
+def show(db:Session, id):
     blog = db.query(models.Blog).filter(models.Blog.id ==id).first()
     if not blog:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"Blogs with the id {id} is not found")
